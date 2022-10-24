@@ -2,7 +2,6 @@ import { Button, Box } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
-import { AxiosResponse } from 'axios';
 import { Header } from '../components/Header';
 import { CardList } from '../components/CardList';
 import { api } from '../services/api';
@@ -30,15 +29,13 @@ export default function Home(): JSX.Element {
   const fetchImages = async ({
     pageParam = null,
   }: FetchImagesParam): Promise<ImagesResponse> => {
-    let response: AxiosResponse<ImagesResponse>;
+    const { data } = await api.get('/api/images', {
+      params: {
+        after: pageParam,
+      },
+    });
 
-    if (!pageParam) {
-      response = await api.get(`/api/images`);
-    } else {
-      response = await api.get(`/api/images?after=${pageParam}`);
-    }
-
-    return response.data;
+    return data;
   };
 
   const {
@@ -49,13 +46,7 @@ export default function Home(): JSX.Element {
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery('images', fetchImages, {
-    getNextPageParam: response => {
-      if (!response.after) {
-        return null;
-      }
-
-      return response.after;
-    },
+    getNextPageParam: response => response?.after || null,
   });
 
   const formattedData = useMemo(() => {
