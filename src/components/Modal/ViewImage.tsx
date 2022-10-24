@@ -21,19 +21,28 @@ export function ModalViewImage({
 }: ModalViewImageProps): JSX.Element {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      {/* <ModalOverlay />
-    <ModalContent>
-      <ModalBody>
-        <Lorem count={2} />
-      </ModalBody>
+      <ModalOverlay />
+      <ModalContent
+        w="auto"
+        h="auto"
+        maxW={['300px', '500px', '900px']}
+        overflow="hidden"
+        bgColor="pGray.800"
+      >
+        <ModalBody p={0}>
+          <Image
+            src={imgUrl}
+            maxW={['300px', '500px', '900px']}
+            maxH={['350px', '450px', '600px']}
+          />
+        </ModalBody>
 
-      <ModalFooter>
-        <Button colorScheme="blue" mr={3} onClick={onClose}>
-          Close
-        </Button>
-        <Button variant="ghost">Secondary Action</Button>
-      </ModalFooter>
-    </ModalContent> */}
+        <ModalFooter height={8} justifyContent="flex-start" py="10px" px="8px">
+          <Link href={imgUrl} target="_blank">
+            Abrir original
+          </Link>
+        </ModalFooter>
+      </ModalContent>
     </Modal>
   );
 }
