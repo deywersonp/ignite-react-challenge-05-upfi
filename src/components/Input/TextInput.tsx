@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction } from 'react';
-import { FieldError } from 'react-hook-form';
+import { FieldError as RHFFieldError } from 'react-hook-form';
 import {
   FormControl,
   FormErrorMessage,
@@ -9,6 +9,8 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 import { FiAlertCircle } from 'react-icons/fi';
+
+type FieldError = Omit<RHFFieldError, 'type'>;
 
 interface InputProps extends ChakraInputProps {
   name: string;
